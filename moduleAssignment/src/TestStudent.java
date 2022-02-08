@@ -20,7 +20,8 @@ public class TestStudent
 		s1.showStudentInformation();
 
 		// print the identity of Student s2 by calling the getter methods
-		s2.showStudentInformation();
+		System.out.print("Name: " + s2.getName() + " || Student Number: " + s2.getStudentnumber() + " || Course: " + s2.getCourse() + "\n");
+
 		// print the identity of Student s3 by calling the showStudentInformation() method
 		s3.showStudentInformation();
 	}

@@ -30,10 +30,16 @@ public class Student
  
 	public void setStudentnumber(int studentNumber)
 	{
-		if (studentNumber >= 0)
-			this.studentNumber = studentNumber;
-		else 
-			this.studentNumber = 0;
+		//if (studentNumber > 0)
+			//this.studentNumber = studentNumber;
+		//else 
+			//this.studentNumber = 0;
+		
+
+
+						     //Condition > 0? if true           //if false
+		this.studentNumber = (studentNumber > 0) ? studentNumber : 0;
+		//This is the shorter form  of if, else statement
 	}
 
 	public void setCourse(String course)
@@ -56,9 +62,10 @@ public class Student
 	{
 		return course;
 	}
+
 	public void showStudentInformation()
 	{
 		// this method should display the name, studentNumber and the course of the student object.
-		System.out.println(name + "  ||  Student number: " + studentNumber + "  ||  Course: " + course);
+		System.out.println("Name: " + name + "  ||  Student number: " + studentNumber + "  ||  Course: " + course);
 	}
 }
