@@ -2,23 +2,13 @@ import java.util.*;
 
 public class Stringoutputs
 {
-    static Scanner str_in = new Scanner(System.in);
     public static void main(String[] args) 
     {
-        System.out.print("Input Strings: \n\n");
-        String input = str_in.nextLine();
         System.out.println();
-        String stringarr[] = makearray(input);
-        printer(stringarr);
+        printer(args);
         System.out.println();
     }
 
-    public static String[] makearray(String str)
-    {
-        //Splits the string into multiple values for the array 
-        String[] words = str.split(" ");
-        return words;
-    }
 
     public static int numchar(String a)
     {
