@@ -15,18 +15,21 @@ public class Stringoutputs
 
     public static String[] makearray(String str)
     {
+        //Splits the string into multiple values for the array 
         String[] words = str.split(" ");
         return words;
     }
 
     public static int numchar(String a)
     {
+        //Returns the length of the array
         int String_lenght = a.length();
         return String_lenght;
     }
 
     public static String last_character(String m)
     {
+        //Checks the last character if it is a vowel/consonant/number/Symbol 
         String s = m.toUpperCase();
         int len = numchar(s);
         char ch = s.charAt(len-1);
@@ -49,6 +52,7 @@ public class Stringoutputs
     {
         for(int c = 0; c < words.length; c++)
         {
+            //Prints the result of the program 
             String w = words[c];
             int num = numchar(w);
             String last_char = last_character(w);
