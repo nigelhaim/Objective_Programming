@@ -1,3 +1,5 @@
+package moduleAssignment.src;
+
 // Module 2 Assignment
 public class TestStudent
 {
