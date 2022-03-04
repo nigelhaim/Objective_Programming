@@ -3,7 +3,7 @@ public class TestStudent{
 		Student students[] = 
 		{
 			new Student("Matthew", "BSCS", 10000.0F),
-			new Student("Mark", "HSIT", 12000.0F),
+			new Student("Mark", "BSIT", 12000.0F),
 			new PartialScholar("Luke", "BSIT", 12000.0F, 0.25F),
 			new PartialScholar("John", "BSIT", 11000.0F, 0.5F)
 		};

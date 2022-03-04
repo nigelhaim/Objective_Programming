@@ -1,0 +1,54 @@
+You are hired by the company Tickets R Us. 
+Part of your first project is to develop an application to assist with the selling of tickets. 
+After discussing with your client, you identify that each ticket requires two attributes: 
+a serial number and a price. 
+You also identify that three types of tickets are sold: counter tickets, Web tickets, and discount tickets. 
+Following are the specifications: 
+1. Counter tickets are sold on the day of the event at a ticket counter. They cost $50. 
+2. Web tickets are purchased on the internet. Web tickets purchased a week in advance of the event 
+   are $30 and those purchased less than a week in advance are $40. 
+3. Discount tickets are a type of Web tickets. They are available for students and senior citizens. 
+   They are 50 percent off normal Web ticket prices, i.e. if purchased a week or more in advance they 
+   are $15 and if purchased less than a week in advance they are $20. 
+
+To purchase a discount ticket you either need to be a student or a senior citizen. Proper identification 
+will be needed at the time the ticket is collected. The reason for the discount (student or senior) will 
+be printed on the ticket. For this assignment implement the following: 
+
+  a. A class called Ticket which will be the superclass of both types of tickets (CounterTicket and 
+     WebTicket). All common fields and operations (methods) need to be implemented for this class. 
+     Following are additional specifications for this class 
+     1. each time a ticket is made, a serial number is incremented. 
+     2. A constructor Ticket() 
+     3. a method public int getPrice() to return the ticket's price 
+     4. a method public String toString() returns a String. This return value can be used to print a 
+        ticket 
+  b. The class WebTicket inherits from Ticket. 
+	- A constructor WebTicket(int days) 
+  c. The class DiscountTicket inherits from WebTicket. 
+	- A constructor DiscountTicket(int days, String type) 
+	- Since discount tickets indicate the type of discount (i.e. ‘student' or ‘senior'), you 
+	  will need to override the toString() method. 
+  d. Pricing information about the various tickets need to be given in the form of static variables as 
+     shown below: 
+
+	public static int COUNTER_TICKET_PRICE = 50; 
+	public static int WEB_TICKET_PRICE = 30; 
+	public static int WEB_TICKET_LT_WEEK_PRICE = 40; 
+	public static double DISCOUNT = 0.5; 
+
+Please note that you have to place the static variables mentioned above in the appropriate classes (for 
+example, Web ticket pricing information would be in WebTicket). 
+
+To guide your development efforts as part of this assignment description you are provided a TicketTest 
+class and a test method. Include this class in your project (easiest way would be to create a new 
+TicketTest class within and then cut and paste the code you have been provided). For convenience, the 
+test method is static. Hence, you do not need to create an instance of TicketTest. Just right click on 
+TicketTest and run the test method. On running the test method your output should look like the following:
+ 
+	Ticket: [ serial#: 0 Price: 30] 
+	Ticket: [ serial#: 1 Price: 40] 
+	Ticket: [ serial#: 2 Price: 50] 
+	Ticket: [ serial#: 3 Price: 20 Type: Student] 
+	Ticket: [ serial#: 4 Price: 15 Type: Senior] 
+	Total sales: 155
