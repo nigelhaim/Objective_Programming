@@ -1,4 +1,3 @@
-import java.math.*;
 public class Triangle implements Shapes{
 	private int side1;
 	private int side2;
