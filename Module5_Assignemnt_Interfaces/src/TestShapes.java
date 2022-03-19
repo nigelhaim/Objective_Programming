@@ -1,25 +1,26 @@
 public class TestShapes{
 	public static void main(String[] args) {
+		Shapes shape;
 		if(args.length == 1)
 		{
-			int r =  Integer.parseInt(args[0]);
-			Shapes c = new Circle(r);
-			c.getDetails();
+			int radius =  Integer.parseInt(args[0]);
+			shape = new Circle(radius);
+			shape.getDetails();
 		}
 
 		else if(args.length == 2)
 		{
-			int l = Integer.parseInt(args[0]);
-			int w = Integer.parseInt(args[1]);
+			int length = Integer.parseInt(args[0]);
+			int width = Integer.parseInt(args[1]);
 			
-			if(l == w){
-				Shapes s = new Square(12);
-				s.getDetails();
+			if(length == width){
+				shape = new Square(length);
+				shape.getDetails();
 			}
 
 			else{
-				Shapes r = new Rectangle(l, w);
-				r.getDetails();
+				shape = new Rectangle(length, width);
+				shape.getDetails();
 			}
 		}
 
@@ -28,8 +29,8 @@ public class TestShapes{
 			int side1 = Integer.parseInt(args[0]);
 			int side2 = Integer.parseInt(args[1]);
 			int side3 = Integer.parseInt(args[2]);
-			Shapes t = new Triangle(side1, side2, side3);
-			t.getDetails();
+			shape = new Triangle(side1, side2, side3);
+			shape.getDetails();
 		}	
 
 		else{System.out.print("Invalid Input");}
