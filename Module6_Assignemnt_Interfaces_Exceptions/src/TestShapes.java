@@ -6,6 +6,7 @@ Test shapes module 6 Exception handling version 1
 public class TestShapes{
 	public static void main(String[] args) 
 	{
+		long start = System.nanoTime();
 		try{
 			if(Integer.parseInt(args[0]) > 0){
 				Shapes shape = null;
@@ -52,6 +53,11 @@ public class TestShapes{
 		}
 		catch(Exception e){
 			System.out.println(e.getMessage() + "\nAn IllegalArgumentException is caught.");
+		}
+		finally{
+			long end = System.nanoTime();
+			System.out.print("\nRuntime: ");
+			System.out.println(end - start);
 		}
 	}
 }
