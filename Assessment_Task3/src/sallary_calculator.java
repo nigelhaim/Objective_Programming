@@ -19,6 +19,7 @@ public class sallary_calculator{
 			int num_hour = 0;
 			for(String a : arr_hours_string){//Stores the string number of hours into integer array
 				int_hours.add(Integer.parseInt(a));
+				num_hour++;
 			}
 			try{
 				for(int r = 0; r < int_hours.size(); r++){
@@ -26,16 +27,19 @@ public class sallary_calculator{
 						if(int_hours.get(t) < 0){
 						throw new Exception(Integer.toString(int_hours.get(t))  + " hours in line: " + (lineCount + 1));
 						}
+						else if(num_hour < 7){
+							throw new Exception("Invalid number of hours of the week in line: " + (lineCount + 1));
+						}
 					}
 				}
 			}
 			
 			catch(Exception e){
-				System.out.println("Invalid hours!\nCause of error: " + e.getMessage());
+				System.out.println("Invalid data!\nCause of error: " + e.getMessage());
 				System.exit(0);
 			}
-			/*System.out.println("Linked list: " + int_hours );
-			System.out.println();*/
+			System.out.println("Linked list: " + int_hours );
+			System.out.println();
 			//System.out.println("Line #" + ++lineCount + ": " + s);
 			++lineCount;
 		}
