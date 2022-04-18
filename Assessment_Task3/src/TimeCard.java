@@ -1,6 +1,6 @@
 import java.io.*;
 import java.util.LinkedList;
-public class sallary_calculator{
+public class TimeCard{
 	public static void main(String[] args) throws IOException
 	{ 
 		File time_card = new File(args[0]);
@@ -8,20 +8,25 @@ public class sallary_calculator{
 		BufferedReader read = new BufferedReader(new FileReader(time_card));
 		int lineCount = 0;
 		String s;
+		File sal_per_week = new File("Outputs.txt");
+		PrintWriter output = new PrintWriter(new FileWriter(sal_per_week));	
+		output.println("Salary per week:");
 		//System.out.println("\nTest Input: \n");
 		while((s = read.readLine()) != null){
-			String[] arr_hours_string = s.split(", ", 7);
+			String[] arr_hours_string = s.split(", ");
 			LinkedList<Integer> int_hours = new LinkedList<>();
+			
 			//This looop is to test if the split is correct in the string
 			/*for(String a : arr_hours_string){
 				System.out.println(a);
 			}*/
+
 			int num_hour = 0;
 			for(String a : arr_hours_string){//Stores the string number of hours into integer array
 				int_hours.add(Integer.parseInt(a));
 				num_hour++;
 			}
-			try{
+			try{//Checks if the input hours is a positive integer that is lessthan or equal to 24
 				for(int r = 0; r < int_hours.size(); r++){
 					for(int t = 0; t < 7; t++){
 						if(int_hours.get(t) < 0 || int_hours.get(t) > 24){
@@ -34,7 +39,7 @@ public class sallary_calculator{
 				}
 			}
 			
-			catch(Exception e){
+			catch(Exception e){//Prompts the user of the error 
 				System.out.println("Invalid data!\nCause of error: " + e.getMessage());
 				System.exit(0);
 			}
@@ -43,47 +48,52 @@ public class sallary_calculator{
 			System.out.println();
 			System.out.println("Line #" + ++lineCount + ": " + s);
 			
-			double sallary = 0;
+			double salary = 0;
 			int hour_per_week = 0; 
 			System.out.print("Output #" + lineCount + ": ");
 			
 			for(int hour_reader = 0; hour_reader < int_hours.size(); hour_reader++){
 				int hour = int_hours.get(hour_reader);
 				hour_per_week += hour;
-				sallary += hour_sallary(hour);
+				salary += hour_salary(hour);
 			}
 			if(hour_per_week > 40){
-				sallary += add_sallary((hour_per_week - 40), 2.50);
+				salary += add_salary((hour_per_week - 40), 2.50);
 			}
 
-			sallary += weekend_sallary_bonus(int_hours.get(0), int_hours.get(6));
-
-			System.out.println("$" + sallary + " Number of hours: " + hour_per_week);
+			salary += weekend_salary_bonus(int_hours.get(0), int_hours.get(6));
+			System.out.print("$");
+			System.out.printf("%.2f", salary);
+			System.out.println(" | Number of hours: " + hour_per_week);
+			
+			output.print("Week " + lineCount + ": $");
+			output.printf("%.2f", salary);
+			output.println();
 		}
+		read.close();
+		output.close();
 	}
 
-	public static double weekend_sallary_bonus(int sun, int sat){
-		double sunday_sallary = hour_sallary(sun) * 0.50;
-		//sunday_sallary += (sunday_sallary * 0.25) - sunday_sallary;
-		double saturday_sallary = hour_sallary(sat) * 1.25;
-		//saturday_sallary += (saturday_sallary * 2.25) - saturday_sallary;
-		double sat_sun_sallary = sunday_sallary + saturday_sallary;
-		return sat_sun_sallary;
+	public static double weekend_salary_bonus(int sun, int sat){
+		double sunday_salary = hour_salary(sun) * 0.50;
+		double saturday_salary = hour_salary(sat) * 1.25;
+		double sat_sun_bonus = sunday_salary + saturday_salary;
+		return sat_sun_bonus;
 	}
 	
-	public static double hour_sallary(int hours){
-		int sallary = 0; 
+	public static double hour_salary(int hours){
+		double salary = 0; 
 		if(hours > 8){
-			sallary += add_sallary(hours, 10);
-			sallary += add_sallary(hours - 8, 1.50);
+			salary += add_salary(hours, 10);
+			salary += add_salary(hours - 8, 1.50);
 		}	
 		else{
-			sallary += add_sallary(hours, 10);
+			salary += add_salary(hours, 10);
 		}
-		return sallary;
+		return salary;
 	}
 
-	public static double add_sallary(int hours, double amount){
+	public static double add_salary(int hours, double amount){
 		double s = 0;
 		for(int i = 0; i < hours; i++){
 			s += amount;
