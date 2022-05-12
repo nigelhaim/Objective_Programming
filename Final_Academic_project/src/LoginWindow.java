@@ -18,8 +18,10 @@ public class LoginWindow implements ActionListener{
     private String username_Value;
     
     private JButton login;
+
+    private int login_attempt;
     public LoginWindow(){
-        f = new JFrame();
+        f = new JFrame("Login");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loginPanel = new JPanel();
         loginPanelUser = new JPanel();
@@ -32,6 +34,7 @@ public class LoginWindow implements ActionListener{
         pass = new JLabel("Password:  ");
 
         login = new JButton("Login");
+        login_attempt = 0;
     }
 
     public void startApp(){ 
@@ -70,9 +73,20 @@ public class LoginWindow implements ActionListener{
             boolean access = access(user_Value, pass_Value);
             if (access){
                 System.out.println("Access Granted!");
+                f.dispose();
+                List_Of_Records main_App = new List_Of_Records();
+                main_App.startApp();
             }
             else{
                 System.out.println("Access Denied!");
+                JOptionPane.showMessageDialog(f, "Incorrect Username / Password", "Error Screen", JOptionPane.INFORMATION_MESSAGE);
+                login_attempt++;
+
+                if(login_attempt > 2)
+                {
+                    JOptionPane.showMessageDialog(f, "Sorry, you have reached the limit of 3 tries, good bye!", "Error Screen", JOptionPane.INFORMATION_MESSAGE);
+                    System.exit(0);
+                }
             }
         }catch(IOException err){
             System.out.print(err.getMessage());
