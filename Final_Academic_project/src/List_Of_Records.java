@@ -10,24 +10,35 @@ public class List_Of_Records implements ActionListener{
 	private JPanel records;
 	private JPanel buttons;
 	private JPanel mainPanel;
+	private JPanel sorter;
 
 	private JLabel name;
 	private JLabel birthday;
 	private JLabel age;
+	private JLabel sortBy;
 
 	private JTextArea printer;
 
 	private JButton add_record;
-	private JButton remove_record;
+	private JButton sub_record;
 	private JButton export_CSV;
 
+	private JComboBox sort_selection;
+
+	private JRadioButton asc;
+	private JRadioButton des;
+
+	private String[] selection = {"Name", "Birthday", "Age"};
+	
 	public List_Of_Records(){
 		f_main = new JFrame("List of records");
 		f_main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		header = new JPanel();
 		records = new JPanel();
 		buttons = new JPanel();
 		mainPanel = new JPanel();
+		sorter = new JPanel();
 
 		printer = new JTextArea();
 		printer.setEditable(false);
@@ -35,6 +46,7 @@ public class List_Of_Records implements ActionListener{
 		name = new JLabel("NAME     ");
 		birthday = new JLabel("     BIRTHDAY     ");
 		age = new JLabel("     AGE");
+		sortBy = new JLabel("Sort by: ");
 
 		try{
 			File dataBase = new File("database.txt");
@@ -53,8 +65,13 @@ public class List_Of_Records implements ActionListener{
 
 
 		add_record = new JButton("Add a \nRecord");
-		remove_record = new JButton("Remove a \nRecord");
+		sub_record = new JButton("Remove a \nRecord");
 		export_CSV = new JButton("Export to \nCSV File");
+
+		sort_selection = new JComboBox<String>(selection);
+
+		asc = new JRadioButton("Ascending");
+		des = new JRadioButton("Descending");
 	}
 
 	public void startApp(){
@@ -64,14 +81,24 @@ public class List_Of_Records implements ActionListener{
 
 		records.add(printer);
 
+		sorter.add(sortBy);
+		sorter.add(sort_selection);
+		sorter.add(asc);
+		sorter.add(des);
+
+		ButtonGroup group = new ButtonGroup();
+
+		group.add(asc);
+		group.add(des);
+
 		buttons.add(add_record);
-		buttons.add(remove_record);
+		buttons.add(sub_record);
 		buttons.add(export_CSV);
 
 		f_main.add(header);
 		f_main.add(records);
+		f_main.add(sorter);
 		f_main.add(buttons);
-
 		f_main.add(mainPanel);
 		f_main.setSize(500, 500);
 		f_main.setLayout(new GridLayout(5, 1)); 
@@ -79,6 +106,7 @@ public class List_Of_Records implements ActionListener{
 		f_main.setVisible(true);
 
 		add_record.addActionListener(this);
+		sub_record.addActionListener(this);
 	}
 	public void actionPerformed(ActionEvent e)
 	{
@@ -86,6 +114,12 @@ public class List_Of_Records implements ActionListener{
 			f_main.dispose();
 			add_record new_record = new add_record();
 			new_record.startApp();
+		}
+
+		else if(e.getSource() == sub_record){
+			f_main.dispose();
+			remove_record subt_record = new remove_record();
+			subt_record.startApp();
 		}
 	}
 }

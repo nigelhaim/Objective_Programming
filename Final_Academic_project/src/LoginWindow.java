@@ -66,11 +66,13 @@ public class LoginWindow implements ActionListener{
         String user_Value = username.getText();
         String pass_Value = password.getText();
         try{
-            if(username.getText() == null || password.getText() == null)
+            if(username.getText().equals("") || password.getText().equals(""))
             {
                 throw new IOException("Err");
             }
+
             boolean access = access(user_Value, pass_Value);
+
             if (access){
                 System.out.println("Access Granted!");
                 f.dispose();

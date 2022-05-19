@@ -1,5 +1,9 @@
  import java.time.*;
+ import java.io.*;
 public class person{
+
+	private File database;
+
 	private String name;
 	private LocalDate birthday;
 	private int age;
@@ -26,5 +30,20 @@ public class person{
 
 	public LocalDate getBday(){
 		return birthday;
+	}
+
+	public String getString(){
+		return "Name: " + getName() + "\nBirthday: " + getBday() + "\nAge: " + getAge();
+	}
+
+	public void upload_data() throws IOException{
+		database  = new File("database.txt");
+
+		PrintWriter print = new PrintWriter(new FileWriter(database, true));
+
+		String data = getName() + "|" + getBday() + "|" + getAge();
+		print.println(data);
+		print.close();
+		return;
 	}
 }
