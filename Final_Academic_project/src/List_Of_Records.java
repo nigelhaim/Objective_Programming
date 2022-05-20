@@ -3,7 +3,7 @@ import java.io.*;
 import java.util.*;
 import java.awt.event.*;
 import java.awt.*;
-
+import java.time.*;
 public class List_Of_Records implements ActionListener{
 	private JFrame f_main;
 	private JPanel header;
@@ -28,9 +28,15 @@ public class List_Of_Records implements ActionListener{
 	private JRadioButton asc;
 	private JRadioButton des;
 
+
 	private String[] selection = {"Name", "Birthday", "Age"};
+	private person append_person;
+	private ArrayList<person> database;
 	
 	public List_Of_Records(){
+
+		database = new ArrayList<person>();
+
 		f_main = new JFrame("List of records");
 		f_main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -56,13 +62,19 @@ public class List_Of_Records implements ActionListener{
 
 			while((s = read.readLine()) != null)
 			{
-				printer.append(s + "\n");
+				append_person = setPersonValue(s);
+				System.out.println("Append person\n" + append_person.getString());
+				database.add(append_person);
 			}
 		}catch(IOException e){
-			System.err.println("Invalid Data Base");
+			System.err.println("Invalid Database");
 			System.exit(0);
 		}
 
+		for(int i = 0; i < database.size(); i++){
+			String print = database.get(i).program_printer();
+			printer.append(print + "\n");
+		}
 
 		add_record = new JButton("Add a \nRecord");
 		sub_record = new JButton("Remove a \nRecord");
@@ -121,5 +133,15 @@ public class List_Of_Records implements ActionListener{
 			remove_record subt_record = new remove_record();
 			subt_record.startApp();
 		}
+	}
+
+	public person setPersonValue(String s){
+		
+		String splitter[] = s.split(",");
+		String name = splitter[0];
+		LocalDate birthday = LocalDate.parse(splitter[1]);
+		int age = Integer.parseInt(splitter[2]);
+		person person = new person(name, birthday, age);
+		return person;
 	}
 }
