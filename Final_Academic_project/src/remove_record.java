@@ -19,6 +19,9 @@ public class remove_record implements ActionListener{
 	private JButton save_remove;
 	private JButton back;
 
+	private person append_person; 
+	private ArrayList<person> database;		
+	
 	public remove_record(){
 		main = new JPanel();
 
@@ -35,7 +38,7 @@ public class remove_record implements ActionListener{
 		buttons = new JPanel();
 	}
 
-	public void startApp(){
+	public void startApp(ArrayList<person> database){
 		remove_name.add(name_label);
 		remove_name.add(name_input);
 
@@ -50,6 +53,8 @@ public class remove_record implements ActionListener{
 		frame_remove.setSize(400,190);
 		frame_remove.setLocationRelativeTo(null);
 		frame_remove.setVisible(true);
+
+		this.database = database;
 
 		remove_back.addActionListener(this);
 		save_remove.addActionListener(this);
@@ -66,13 +71,37 @@ public class remove_record implements ActionListener{
 		else if(e.getSource() == remove_back){
 			System.out.println("Removed person!");
 			System.out.println("Name: " + name_input.getText());
-			System.out.println();
+			try{
+				remove_person(name_input.getText());
+			}catch(Exception err){
+				System.out.println("Invalid Input");
+			}
+			System.out.println();	
 		}
 
 		else if(e.getSource() == save_remove){
 			System.out.println("Removed person!");
 			System.out.println("Name: " + name_input.getText());
+			try{
+				remove_person(name_input.getText());
+			}catch(Exception err){
+				System.out.println("Invalid Input");
+			}
 			System.out.println();
 		}
+	}
+
+	public void remove_person(String name) throws IOException{
+		File new_database = new File ("database.txt");
+		
+		PrintWriter print = new PrintWriter(new FileWriter(new_database));
+		for(int i = 0; i < database.size(); i++){
+			if(!(database.get(i).getName().equals(name_input.getText()))){
+				String data = database.get(i).getName() + "," + database.get(i).getBday() + "," + database.get(i).getAge();
+				print.println(data);
+			}
+		}
+		print.close();
+		return;
 	}
 }

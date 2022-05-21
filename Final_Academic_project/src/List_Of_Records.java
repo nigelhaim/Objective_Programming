@@ -131,7 +131,7 @@ public class List_Of_Records implements ActionListener{
 		else if(e.getSource() == sub_record){
 			f_main.dispose();
 			remove_record subt_record = new remove_record();
-			subt_record.startApp();
+			subt_record.startApp(database);
 		}
 	}
 
