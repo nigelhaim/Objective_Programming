@@ -73,11 +73,8 @@ public class List_Of_Records implements ActionListener{
 			System.err.println("Invalid Database");
 			System.exit(0);
 		}
-
-		for(int i = 0; i < database.size(); i++){
-			String print = database.get(i).program_printer();
-			printer.append(print + "\n");
-		}
+		
+		printer.setText(textAreaSet(database));
 
 		add_record = new JButton("Add a \nRecord");
 		sub_record = new JButton("Remove a \nRecord");
@@ -173,7 +170,7 @@ public class List_Of_Records implements ActionListener{
 				{
 					System.out.println(p.getName());
 				}
-				printer.update(printer.getGraphics());
+				printer.setText(textAreaSet(database));
 				System.out.println("Sorted in Ascending order by Name");
 			}
 			else if(des.isSelected()){
@@ -190,7 +187,7 @@ public class List_Of_Records implements ActionListener{
 				{
 					System.out.println(p.getName());
 				}
-				printer.update(printer.getGraphics());
+				printer.setText(textAreaSet(database));
 				System.out.println("Sorted in Descending order by Name");
 			}
 		}
@@ -209,7 +206,7 @@ public class List_Of_Records implements ActionListener{
 				{
 					System.out.println(p.getBday());
 				}
-				printer.update(printer.getGraphics());
+				printer.setText(textAreaSet(database));
 				System.out.println("Sorted in Ascending order by Bday");
 			}
 			else if(des.isSelected()){
@@ -226,7 +223,7 @@ public class List_Of_Records implements ActionListener{
 				{
 					System.out.println(p.getBday());
 				}
-				printer.update(printer.getGraphics());
+				printer.setText(textAreaSet(database));
 				System.out.println("Sorted in Descending order by Bday");
 			}
 		}
@@ -245,7 +242,7 @@ public class List_Of_Records implements ActionListener{
 				{
 					System.out.println(p.getAge());
 				}
-				printer.update(printer.getGraphics());
+				printer.setText(textAreaSet(database));
 				System.out.println("Sorted in Ascending order by Age");
 			}
 			else if(des.isSelected()){
@@ -262,9 +259,18 @@ public class List_Of_Records implements ActionListener{
 				{
 					System.out.println(p.getAge());
 				}
-				printer.update(printer.getGraphics());
+				printer.setText(textAreaSet(database));
 				System.out.println("Sorted in Descending order by Age");
 			}
 		}
+	}
+
+	public String textAreaSet(ArrayList<person> database){
+		String temp = "";
+		for(int i = 0; i < database.size(); i++){
+			String print = database.get(i).program_printer() + "\n";
+			temp += print;
+		}
+		return temp;
 	}
 }
