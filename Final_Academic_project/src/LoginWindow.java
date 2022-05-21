@@ -13,7 +13,7 @@ public class LoginWindow implements ActionListener{
     private JLabel pass;
 
     private JTextField username;
-    private JTextField password;
+    private JPasswordField password;
 
     private String username_Value;
     
@@ -28,7 +28,7 @@ public class LoginWindow implements ActionListener{
         loginPanelPass = new JPanel();
         
         username = new JTextField(20);
-        password = new JTextField(20);      
+        password = new JPasswordField(20);      
 
         user = new JLabel("Username: ");
         pass = new JLabel("Password:  ");
