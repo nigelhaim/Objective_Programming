@@ -81,7 +81,7 @@ public class List_Of_Records implements ActionListener{
 		export_CSV = new JButton("Export to \nCSV File");
 
 		sort_selection = new JComboBox<String>(selection);
-
+		
 		asc = new JRadioButton("Ascending");
 		des = new JRadioButton("Descending");
 	}

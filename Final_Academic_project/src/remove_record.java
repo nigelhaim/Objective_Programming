@@ -62,6 +62,7 @@ public class remove_record implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent e){
+		String input = name_input.getText();
 		if(e.getSource() == back){
 			frame_remove.dispose();
 			List_Of_Records main_menu = new List_Of_Records();
@@ -69,23 +70,39 @@ public class remove_record implements ActionListener{
 		}
 
 		else if(e.getSource() == remove_back){
-			System.out.println("Removed person!");
-			System.out.println("Name: " + name_input.getText());
-			try{
-				remove_person(name_input.getText());
-			}catch(Exception err){
-				System.out.println("Invalid Input");
+			try
+			{
+				if(!validateInput(input)){
+					throw new IllegalArgumentException("Name Not Found!");
+				}
+				remove_person(input);
+				System.out.println("Removed person!");
+				System.out.println("Name: " + name_input.getText());	
+			}catch(IllegalArgumentException err){
+				JOptionPane.showMessageDialog(frame_remove, "An IllegalArgumentException Caught: Name Not Found!", "Error Screen", JOptionPane.PLAIN_MESSAGE);
+				System.out.print("Name: " + input + " does not exist");
+			}
+			catch(Exception err){
+				System.out.print("Err");
 			}
 			System.out.println();	
 		}
 
 		else if(e.getSource() == save_remove){
-			System.out.println("Removed person!");
-			System.out.println("Name: " + name_input.getText());
-			try{
-				remove_person(name_input.getText());
-			}catch(Exception err){
-				System.out.println("Invalid Input");
+			try
+			{
+				if(!validateInput(input)){
+					throw new IllegalArgumentException("Name Not Found!");
+				}
+				remove_person(input);
+				System.out.println("Removed person!");
+				System.out.println("Name: " + input);
+			}catch(IllegalArgumentException err){
+				JOptionPane.showMessageDialog(frame_remove, "An IllegalArgumentException Caught: " + err, "Error Screen", JOptionPane.PLAIN_MESSAGE);
+				System.out.print("Name: " + input + " does not exist");
+			}
+			catch(Exception err){
+				System.out.print("Err");
 			}
 			System.out.println();
 		}
@@ -103,5 +120,15 @@ public class remove_record implements ActionListener{
 		}
 		print.close();
 		return;
+	}
+
+	public boolean validateInput(String name){
+		boolean valid = false;
+		for(int i = 0; i < database.size(); i++){
+			if(database.get(i).equals(name)){
+				valid = true;
+			}
+		}
+		return valid;
 	}
 }
