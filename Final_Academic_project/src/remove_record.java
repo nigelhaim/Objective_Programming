@@ -33,7 +33,7 @@ public class remove_record implements ActionListener{
 		remove_name = new JPanel();
 
 		remove_back = new JButton("Remove and Go Back");
-		save_remove = new JButton("Save & Remove");
+		save_remove = new JButton("Remove and remove another");
 		back = new JButton("Back");
 		buttons = new JPanel();
 	}

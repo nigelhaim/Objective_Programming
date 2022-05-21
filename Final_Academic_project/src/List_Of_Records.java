@@ -33,6 +33,8 @@ public class List_Of_Records implements ActionListener{
 	private person append_person;
 	private ArrayList<person> database;
 	
+	private JScrollPane scroll;
+
 	public List_Of_Records(){
 
 		database = new ArrayList<person>();
@@ -46,8 +48,9 @@ public class List_Of_Records implements ActionListener{
 		mainPanel = new JPanel();
 		sorter = new JPanel();
 
-		printer = new JTextArea();
+		printer = new JTextArea(20, 40);
 		printer.setEditable(false);
+		//printer.setAlignment(TextArea.CENTER);
 
 		name = new JLabel("NAME     ");
 		birthday = new JLabel("     BIRTHDAY     ");
@@ -84,6 +87,8 @@ public class List_Of_Records implements ActionListener{
 		
 		asc = new JRadioButton("Ascending");
 		des = new JRadioButton("Descending");
+
+		//scroll = new JScrollPane(printer, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 	}
 
 	public void startApp(){
@@ -112,6 +117,7 @@ public class List_Of_Records implements ActionListener{
 		f_main.add(sorter);
 		f_main.add(buttons);
 		f_main.add(mainPanel);
+		//f_main.add(scroll);
 		f_main.setSize(500, 500);
 		f_main.setLayout(new GridLayout(5, 1)); 
 		f_main.setLocationRelativeTo(null);
@@ -119,6 +125,12 @@ public class List_Of_Records implements ActionListener{
 
 		add_record.addActionListener(this);
 		sub_record.addActionListener(this);
+		
+		sort_selection.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent evt){
+				sortBox(evt);
+			}
+		});
 	}
 	public void actionPerformed(ActionEvent e)
 	{
@@ -143,5 +155,116 @@ public class List_Of_Records implements ActionListener{
 		int age = Integer.parseInt(splitter[2]);
 		person person = new person(name, birthday, age);
 		return person;
+	}	
+
+	public void sortBox(ActionEvent evt){
+		if(sort_selection.getSelectedItem().toString().equals("Name")){
+			if(asc.isSelected()){
+				for(person p : database){
+					System.out.println(p.getName());
+				}
+				System.out.println();
+				Collections.sort(database, new Comparator<person>(){
+					public int compare(person p1, person p2){
+						return p1.getName().compareTo(p2.getName());
+					}
+				});
+				for(person p : database)
+				{
+					System.out.println(p.getName());
+				}
+				printer.update(printer.getGraphics());
+				System.out.println("Sorted in Ascending order by Name");
+			}
+			else if(des.isSelected()){
+				for(person p : database){
+					System.out.println(p.getName());
+				}
+				System.out.println();
+				Collections.sort(database, new Comparator<person>(){
+					public int compare(person p1, person p2){
+						return p2.getName().compareTo(p1.getName());
+					}
+				});
+				for(person p : database)
+				{
+					System.out.println(p.getName());
+				}
+				printer.update(printer.getGraphics());
+				System.out.println("Sorted in Descending order by Name");
+			}
+		}
+		else if(sort_selection.getSelectedItem().toString().equals("Birthday")){
+			if(asc.isSelected()){
+				for(person p : database){
+					System.out.println(p.getBday());
+				}
+				System.out.println();
+				Collections.sort(database, new Comparator<person>(){
+					public int compare(person p1, person p2){
+						return p1.getBday().compareTo(p2.getBday());
+					}
+				});
+				for(person p : database)
+				{
+					System.out.println(p.getBday());
+				}
+				printer.update(printer.getGraphics());
+				System.out.println("Sorted in Ascending order by Bday");
+			}
+			else if(des.isSelected()){
+				for(person p : database){
+					System.out.println(p.getBday());
+				}
+				System.out.println();
+				Collections.sort(database, new Comparator<person>(){
+					public int compare(person p1, person p2){
+						return p2.getBday().compareTo(p1.getBday());
+					}
+				});
+				for(person p : database)
+				{
+					System.out.println(p.getBday());
+				}
+				printer.update(printer.getGraphics());
+				System.out.println("Sorted in Descending order by Bday");
+			}
+		}
+		else if(sort_selection.getSelectedItem().toString().equals("Age")){
+			if(asc.isSelected()){
+				for(person p : database){
+					System.out.println(p.getAge());
+				}
+				System.out.println();
+				Collections.sort(database, new Comparator<person>(){
+					public int compare(person p1, person p2){
+						return Integer.compare(p1.getAge(), p2.getAge());
+					}
+				});
+				for(person p : database)
+				{
+					System.out.println(p.getAge());
+				}
+				printer.update(printer.getGraphics());
+				System.out.println("Sorted in Ascending order by Age");
+			}
+			else if(des.isSelected()){
+				for(person p : database){
+					System.out.println(p.getAge());
+				}
+				System.out.println();
+				Collections.sort(database, new Comparator<person>(){
+					public int compare(person p1, person p2){
+						return Integer.compare(p2.getAge(), p1.getAge());
+					}
+				});
+				for(person p : database)
+				{
+					System.out.println(p.getAge());
+				}
+				printer.update(printer.getGraphics());
+				System.out.println("Sorted in Descending order by Age");
+			}
+		}
 	}
 }

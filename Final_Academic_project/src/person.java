@@ -24,7 +24,7 @@ public class person{
 		LocalDate today = LocalDate.now();
 		LocalDate birthDate = birthday;
 		int age = Period.between(birthDate, today).getYears();
-		return age;
+		return age;	
 	}
 
 	public int getAge(){

@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.io.*;
 import java.util.*;
 import java.awt.event.*;
-
+import java.awt.*;
 public class LoginWindow implements ActionListener{
     private JFrame f; 
     private JPanel loginPanel;
@@ -50,7 +50,7 @@ public class LoginWindow implements ActionListener{
         loginPanel.add(loginPanelPass);
 
         loginPanel.add(login);
-
+        
         f.add(loginPanel);
         f.setSize(310, 190); 
         f.setLocationRelativeTo(null);

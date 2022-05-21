@@ -27,6 +27,20 @@ public class add_record implements ActionListener{
 	private JButton back;
 
 	private person new_person;
+
+	private String[] months = new String[] {
+								"January",
+								"Febuary",
+								"March",
+								"April",
+								"May",
+								"June",
+								"July",
+								"August",
+								"September",
+								"October",
+								"November",
+								"December",};
 	
 	public add_record(){
 
@@ -40,8 +54,8 @@ public class add_record implements ActionListener{
 		add_name = new JPanel();
 
 		bday = new JLabel("Birthday    ");
-		month_select = day_monthplacer(12);
-		day_select = day_monthplacer(31);
+		month_select = new JComboBox(months);
+		day_select = day_placer(31);
 		year_select = yearPlacer(Calendar.getInstance().get(Calendar.YEAR));
 		add_bday = new JPanel();
 
@@ -79,11 +93,19 @@ public class add_record implements ActionListener{
 
 	public void actionPerformed(ActionEvent e){
 		String new_name = name_input.getText();
-		int buwan = (int) month_select.getSelectedItem();
+		int buwan =  month_integer((String) month_select.getSelectedItem());
 		int araw = (int) day_select.getSelectedItem();
 		int taon = (int) year_select.getSelectedItem();
 		LocalDate new_bday = LocalDate.of(taon, buwan, araw);
+		LocalDate today = LocalDate.now();
 
+		try{
+			if(new_bday.isAfter(today)){
+				throw new IllegalArgumentException("Err");
+			}
+		}catch(IllegalArgumentException ebb){
+			JOptionPane.showMessageDialog(frame_add, "Date is in the future: Invalid Date", "Error Screen", JOptionPane.INFORMATION_MESSAGE);
+		}
 		if(e.getSource() == back){
 			frame_add.dispose();
 			List_Of_Records main_menu = new List_Of_Records();
@@ -94,16 +116,21 @@ public class add_record implements ActionListener{
 			/*System.out.println("Name: " + name_input.getText());
 			System.out.println("Birthday: " + month_select.getSelectedItem() + " | " + day_select.getSelectedItem() + " | " + year_select.getSelectedItem());*/
 			new_person = new person(new_name, new_bday);
-			System.out.println("Registered new person!");
-			System.out.println(new_person.getString());
 			try{
 				if(new_person == null){
 					throw new IOException("Error");
 				}
+				if(new_bday.isAfter(today)){
+					throw new IllegalArgumentException("Err");
+				}
 				new_person.upload_data();
 			}catch(IOException n){
 				System.out.println("Missing person details");
+			}catch(IllegalArgumentException ebb){
+				JOptionPane.showMessageDialog(frame_add, "Date is in the future: Invalid Date", "Error Screen", JOptionPane.INFORMATION_MESSAGE);
 			}
+			System.out.println("Registered new person!");
+			System.out.println(new_person.getString());
 			System.out.println();
 			frame_add.dispose();
 			List_Of_Records main_menu = new List_Of_Records();
@@ -112,16 +139,21 @@ public class add_record implements ActionListener{
 
 		else if(e.getSource() == save_Add){
 			new_person = new person(new_name, new_bday);
-			System.out.println("Registered new person!");
-			System.out.println(new_person.getString());
 			try{
 				if(new_person == null){
 					throw new IOException("Error");
 				}
+				if(new_bday.isAfter(today)){
+					throw new IllegalArgumentException("Err");
+				}
 				new_person.upload_data();
 			}catch(IOException n){
 				System.out.println("Missing person details");
+			}catch(IllegalArgumentException ebb){
+				JOptionPane.showMessageDialog(frame_add, "Date is in the future: Invalid Date", "Error Screen", JOptionPane.INFORMATION_MESSAGE);
 			}
+			System.out.println("Registered new person!");
+			System.out.println(new_person.getString());
 			System.out.println();
 			name_input.setText("");
 			month_select.setSelectedIndex(0);
@@ -129,7 +161,7 @@ public class add_record implements ActionListener{
 			year_select.setSelectedIndex(0);
 		}
 	}
-	public JComboBox day_monthplacer(int length){
+	public JComboBox day_placer(int length){
 		JComboBox time = new JComboBox<Integer>();
 		for(int i = 1; i <= length; i++){
 			time.addItem(i);
@@ -144,5 +176,48 @@ public class add_record implements ActionListener{
 			CurrentYear--;
 		}
 		return year;
+	}
+
+	public int month_integer(String month){
+		int return_num = 0;
+		switch(month){
+			case "January":
+				return_num = 1;
+				break;
+			case "Febuary":
+				return_num = 2;
+				break;
+			case "March":
+				return_num = 3;
+				break;
+			case "April":
+				return_num = 4;
+				break;
+			case "May":
+				return_num = 5;
+				break;
+			case "June":
+				return_num = 6;
+				break;
+			case "July":
+				return_num = 7;
+				break;
+			case "August":
+				return_num = 8;
+				break;
+			case "September":
+				return_num = 9;
+				break;
+			case "October":
+				return_num = 10;
+				break;
+			case "November":
+				return_num = 11;
+				break;
+			case "December":
+				return_num = 12;
+				break;
+		}
+		return return_num;		
 	}
 }
