@@ -85,7 +85,10 @@ public class remove_record implements ActionListener{
 			catch(Exception err){
 				System.out.print("Err");
 			}
-			System.out.println();	
+			System.out.println();
+			frame_remove.dispose();
+			List_Of_Records main_menu = new List_Of_Records();
+			main_menu.startApp();	
 		}
 
 		else if(e.getSource() == save_remove){
@@ -125,7 +128,7 @@ public class remove_record implements ActionListener{
 	public boolean validateInput(String name){
 		boolean valid = false;
 		for(int i = 0; i < database.size(); i++){
-			if(database.get(i).equals(name)){
+			if(database.get(i).getName().equals(name)){
 				valid = true;
 			}
 		}
