@@ -52,6 +52,6 @@ public class person{
 	}
 
 	public String program_printer(){
-		return getName() + "\t" + getFormattedBday() + "\t" + getAge();
+		return " \t" + getName() + "\t" + getFormattedBday() + "\t" + getAge();
 	}
 }

@@ -34,8 +34,8 @@ public class remove_record implements ActionListener{
 		name_input = new JTextField(20);
 		remove_name = new JPanel();
 
-		remove_back = new JButton("Remove and Go Back");
-		save_remove = new JButton("Remove and remove another");
+		remove_back = new JButton("Remove and \nGo Back");
+		save_remove = new JButton("Remove and \nremove another");
 		back = new JButton("Back");
 		buttons = new JPanel();
 	}
@@ -52,7 +52,7 @@ public class remove_record implements ActionListener{
 		main.add(buttons);
 
 		frame_remove.add(main);
-		frame_remove.setSize(400,190);
+		frame_remove.setSize(460,190);
 		frame_remove.setLocationRelativeTo(null);
 		frame_remove.setVisible(true);
 

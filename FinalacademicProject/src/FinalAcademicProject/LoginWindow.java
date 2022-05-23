@@ -56,7 +56,7 @@ public class LoginWindow implements ActionListener{
         loginPanel.add(login);
         
         f.add(loginPanel);
-        f.setSize(320, 190); 
+        f.setSize(330, 160); 
         f.setLocationRelativeTo(null);
         f.setVisible(true);
 

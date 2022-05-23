@@ -104,14 +104,18 @@ public class add_record extends List_Of_Records implements ActionListener{
 		int taon = (int) year_select.getSelectedItem();
 		LocalDate new_bday = LocalDate.of(taon, buwan, araw);
 		LocalDate today = LocalDate.now();
+		new_person = new person(new_name, new_bday);
+		
 
 		try{
-			if(new_bday.isAfter(today)){
-				throw new IllegalArgumentException("Err");
+			if ((buwan == 4) && araw == 31){
+				throw new IllegalArgumentException("Date is a leap Year");
 			}
-		}catch(IllegalArgumentException ebb){
-			JOptionPane.showMessageDialog(frame_add, "Date is in the future: Invalid Date", "Error Screen", JOptionPane.INFORMATION_MESSAGE);
+
+		}catch(IllegalArgumentException err){
+			JOptionPane.showMessageDialog(frame_add, "Invalid Date: " + err, "Error Screen", JOptionPane.INFORMATION_MESSAGE);
 		}
+
 		if(e.getSource() == back){
 			frame_add.dispose();
 			List_Of_Records main_menu = new List_Of_Records(personList);
@@ -121,19 +125,15 @@ public class add_record extends List_Of_Records implements ActionListener{
 		else if(e.getSource() == save_Back){
 			/*System.out.println("Name: " + name_input.getText());
 			System.out.println("Birthday: " + month_select.getSelectedItem() + " | " + day_select.getSelectedItem() + " | " + year_select.getSelectedItem());*/
-			new_person = new person(new_name, new_bday);
+			
 			try{
-				if(new_person == null){
-					throw new IOException("Error");
-				}
 				if(new_bday.isAfter(today)){
-					throw new IllegalArgumentException("Err");
+					throw new IllegalArgumentException("Date is on the future!");
 				}
+
 				personList.add(new_person);
-			}catch(IOException n){
-				System.out.println("Missing person details");
 			}catch(IllegalArgumentException ebb){
-				JOptionPane.showMessageDialog(frame_add, "Date is in the future: Invalid Date", "Error Screen", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(frame_add, "Invalid Date: " + ebb, "Error Screen", JOptionPane.INFORMATION_MESSAGE);
 			}
 			System.out.println("Registered new person!");
 			System.out.println(new_person.getString());
@@ -145,19 +145,16 @@ public class add_record extends List_Of_Records implements ActionListener{
 		}
 
 		else if(e.getSource() == save_Add){
-			new_person = new person(new_name, new_bday);
 			try{
-				if(new_person == null){
-					throw new IOException("Error");
-				}
 				if(new_bday.isAfter(today)){
-					throw new IllegalArgumentException("Err");
+					throw new IllegalArgumentException("Date is on the future!");
+				}
+				else if(new_bday.isLeapYear()){
+					throw new IllegalArgumentException("Date is a Leap Year");
 				}
 				personList.add(new_person);
-			}catch(IOException n){
-				System.out.println("Missing person details");
 			}catch(IllegalArgumentException ebb){
-				JOptionPane.showMessageDialog(frame_add, "Date is in the future: Invalid Date", "Error Screen", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(frame_add, "Invalid Date: " + ebb, "Error Screen", JOptionPane.INFORMATION_MESSAGE);
 			}
 			System.out.println("Registered new person!");
 			System.out.println(new_person.getString());

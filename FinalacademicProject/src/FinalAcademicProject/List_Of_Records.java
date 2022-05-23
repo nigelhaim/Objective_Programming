@@ -10,14 +10,10 @@ import java.time.format.DateTimeFormatter;
 public class List_Of_Records implements ActionListener{
 	public JFrame f_main;
 	private JPanel header;
-	private JPanel records;
 	private JPanel buttons;
 	private JPanel mainPanel;
 	private JPanel sorter;
-
-	private JLabel name;
-	private JLabel birthday;
-	private JLabel age;
+	private JPanel ascDes;
 	private JLabel sortBy;
 
 	private JTextArea printer;
@@ -49,18 +45,25 @@ public class List_Of_Records implements ActionListener{
 		f_main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		header = new JPanel();
-		records = new JPanel();
+		header.setBackground(Color.red);
+		
 		buttons = new JPanel();
+		buttons.setBackground(Color.blue);
+		
 		mainPanel = new JPanel();
+		mainPanel.setBackground(Color.green);
+		
 		sorter = new JPanel();
+		sorter.setBackground(Color.yellow);
+		
+		ascDes = new JPanel();
+		ascDes.setBackground(Color.white);
 
-		printer = new JTextArea(20, 40);
+		printer = new JTextArea();
 		printer.setEditable(false);
-		//printer.setAlignment(TextArea.CENTER);
+		//printer.setBounds(10, 30, 400, 1000);
+		//printer.setBackground(Color.decode("#f2f2f2"));
 
-		name = new JLabel("NAME     ");
-		birthday = new JLabel("     BIRTHDAY     ");
-		age = new JLabel("     AGE");
 		sortBy = new JLabel("Sort by: ");
 
 		printer.setText(textAreaSet(personList));
@@ -73,22 +76,21 @@ public class List_Of_Records implements ActionListener{
 		
 		asc = new JRadioButton("Ascending");
 		des = new JRadioButton("Descending");
-
-		//scroll = new JScrollPane(printer, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scroll = new JScrollPane(printer, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 	}
 
 	public void startApp(){
-		header.add(name);
-		header.add(birthday);
-		header.add(age);
-
-		records.add(printer);
+		header.add(printer);
+		header.add(scroll);
 
 		sorter.add(sortBy);
 		sorter.add(sort_selection);
-		sorter.add(asc);
-		sorter.add(des);
+		
+		ascDes.add(asc);
+		ascDes.add(des);
+		ascDes.setLayout(new BoxLayout(ascDes, BoxLayout.Y_AXIS));
 
+		sorter.add(ascDes);
 		ButtonGroup group = new ButtonGroup();
 
 		group.add(asc);
@@ -99,11 +101,10 @@ public class List_Of_Records implements ActionListener{
 		buttons.add(export_CSV);
 
 		f_main.add(header);
-		f_main.add(records);
 		f_main.add(sorter);
 		f_main.add(buttons);
 		f_main.add(mainPanel);
-		//f_main.add(scroll);
+		//f_main.add(scroll)	;
 		f_main.setBounds(400, 150, 500, 400);
 		f_main.setLayout(new GridLayout(5, 1)); 
 		f_main.setLocationRelativeTo(null);
@@ -289,7 +290,7 @@ public class List_Of_Records implements ActionListener{
 	}
 
 	public String textAreaSet(ArrayList<person> personList){
-		String temp = "";
+		String temp = " \tNAME\tBIRTHDAY\tAGE\n";
 		for(int i = 0; i < personList.size(); i++){
 			String print = personList.get(i).program_printer() + "\n";
 			temp += print;
