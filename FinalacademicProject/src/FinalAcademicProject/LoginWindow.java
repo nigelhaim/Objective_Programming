@@ -1,10 +1,13 @@
 package FinalAcademicProject;
+//Import 
 import javax.swing.*;
 import java.io.*;
 import java.util.*;
 import java.awt.event.*;
 import java.awt.*;
+
 public class LoginWindow implements ActionListener{
+    //Initiates the elements of a frame
     private JFrame f; 
     private JPanel loginPanel;
     private JPanel loginPanelUser;
@@ -23,8 +26,10 @@ public class LoginWindow implements ActionListener{
     private int login_attempt;
 
     private ArrayList<person> personList;
+    
     public LoginWindow(){
-        personList = new ArrayList<person>();
+        
+        personList = new ArrayList<person>();//Initiates the array of the whole program
         f = new JFrame("Login");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loginPanel = new JPanel();
@@ -66,24 +71,25 @@ public class LoginWindow implements ActionListener{
 
     public void actionPerformed(ActionEvent e)
     {
-
+        //Gets the user input 
         String user_Value = username.getText();
         String pass_Value = password.getText();
         try{
-            if(username.getText().equals("") || password.getText().equals(""))
-            {
+            //If the user does not input the user name throws IOException
+            if(username.getText().equals("") || password.getText().equals("")){
                 throw new IOException("Err");
             }
 
-            boolean access = access(user_Value, pass_Value);
+            boolean access = access(user_Value, pass_Value);//Calls the mathod to check if the user credentials is valid 
 
+            //If it is ture then prints access granted in the system and creates the records and start app
             if (access){
                 System.out.println("Access Granted!");
                 f.dispose();
                 List_Of_Records main_App = new List_Of_Records(personList);
                 main_App.startApp();
             }
-            else{
+            else{//Else denied and when input the incorrect credentials for the 3rd time the system will exit
                 System.out.println("Access Denied!");
                 JOptionPane.showMessageDialog(f, "Incorrect Username / Password", "Error Screen", JOptionPane.INFORMATION_MESSAGE);
                 login_attempt++;
@@ -95,23 +101,25 @@ public class LoginWindow implements ActionListener{
                 }
             }
         }catch(IOException err){
-            System.out.print(err.getMessage());
+            JOptionPane.showMessageDialog(f, "Missing input credentials", "Error Screen", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-
+    //Method that checks for credetials
     public boolean access(String user_Value, String pass_Value) throws IOException{
+        
+        //Gets the userList.txt file for the data base of 
         File userList = new File("FinalAcademicProject/userList.txt");
 
         boolean access = false;
-
+        //Reads the text file through its lines 
         BufferedReader read = new BufferedReader(new FileReader(userList));
         String s;
                 //Key   Value
-        HashMap<String, String> users = new HashMap<String, String>();
+        HashMap<String, String> users = new HashMap<String, String>();//A collection for the credentials
 
         int user = 1;
         int pass = 2; 
-        while((s = read.readLine()) != null){       
+        while((s = read.readLine()) != null){//Loops the text file      
             String username = s;
             s = read.readLine();
             String password = s;
@@ -120,8 +128,8 @@ public class LoginWindow implements ActionListener{
         }
 
         if(users.containsKey(user_Value)){
-            String password_user = users.get(user_Value);
-            if(password_user.equals(pass_Value)){
+            String password_user = users.get(user_Value);//gets the value from a given key 
+            if(password_user.equals(pass_Value)){//Compares the input password with the corresponding value 
                 access = true;
             }
         }

@@ -102,19 +102,6 @@ public class add_record extends List_Of_Records implements ActionListener{
 		int buwan =  month_integer((String) month_select.getSelectedItem());
 		int araw = (int) day_select.getSelectedItem();
 		int taon = (int) year_select.getSelectedItem();
-		LocalDate new_bday = LocalDate.of(taon, buwan, araw);
-		LocalDate today = LocalDate.now();
-		new_person = new person(new_name, new_bday);
-		
-
-		try{
-			if ((buwan == 4) && araw == 31){
-				throw new IllegalArgumentException("Date is a leap Year");
-			}
-
-		}catch(IllegalArgumentException err){
-			JOptionPane.showMessageDialog(frame_add, "Invalid Date: " + err, "Error Screen", JOptionPane.INFORMATION_MESSAGE);
-		}
 
 		if(e.getSource() == back){
 			frame_add.dispose();
@@ -127,17 +114,22 @@ public class add_record extends List_Of_Records implements ActionListener{
 			System.out.println("Birthday: " + month_select.getSelectedItem() + " | " + day_select.getSelectedItem() + " | " + year_select.getSelectedItem());*/
 			
 			try{
+				LocalDate new_bday = LocalDate.of(taon, buwan, araw);
+				LocalDate today = LocalDate.now();
 				if(new_bday.isAfter(today)){
 					throw new IllegalArgumentException("Date is on the future!");
 				}
-
+				new_person = new person(new_name, new_bday);
 				personList.add(new_person);
-			}catch(IllegalArgumentException ebb){
+			}catch(DateTimeException dte){
+				JOptionPane.showMessageDialog(frame_add, "Invalid Date: " + dte, "Error Screen", JOptionPane.INFORMATION_MESSAGE);
+			}
+			catch(IllegalArgumentException ebb){
 				JOptionPane.showMessageDialog(frame_add, "Invalid Date: " + ebb, "Error Screen", JOptionPane.INFORMATION_MESSAGE);
 			}
 			System.out.println("Registered new person!");
 			System.out.println(new_person.getString());
-			System.out.println();
+			System.out.println();	
 			new List_Of_Records(personList);
 			frame_add.dispose();
 			List_Of_Records main_menu = new List_Of_Records(personList);
@@ -146,14 +138,17 @@ public class add_record extends List_Of_Records implements ActionListener{
 
 		else if(e.getSource() == save_Add){
 			try{
+				LocalDate new_bday = LocalDate.of(taon, buwan, araw);
+				LocalDate today = LocalDate.now();
 				if(new_bday.isAfter(today)){
 					throw new IllegalArgumentException("Date is on the future!");
 				}
-				else if(new_bday.isLeapYear()){
-					throw new IllegalArgumentException("Date is a Leap Year");
-				}
+				new_person = new person(new_name, new_bday);
 				personList.add(new_person);
-			}catch(IllegalArgumentException ebb){
+			}catch(DateTimeException dte){
+				JOptionPane.showMessageDialog(frame_add, "Invalid Date: " + dte, "Error Screen", JOptionPane.INFORMATION_MESSAGE);
+			}
+			catch(IllegalArgumentException ebb){
 				JOptionPane.showMessageDialog(frame_add, "Invalid Date: " + ebb, "Error Screen", JOptionPane.INFORMATION_MESSAGE);
 			}
 			System.out.println("Registered new person!");
