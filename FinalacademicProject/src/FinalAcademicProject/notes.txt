@@ -1,0 +1,5 @@
+jar cvfm FinalAcademicProject.jar manif.mf *
+
+
+javac -d ../classes FinalAcademicProject/Fap.java
+

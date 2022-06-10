@@ -5,8 +5,6 @@ import java.io.*;
 import java.time.format.DateTimeFormatter;
 public class person{
 
-	private File database;
-
 	private String name;
 	private LocalDate birthday;
 	private int age;

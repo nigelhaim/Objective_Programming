@@ -109,10 +109,7 @@ public class add_record extends List_Of_Records implements ActionListener{
 			main_menu.startApp();
 		}
 
-		else if(e.getSource() == save_Back){
-			/*System.out.println("Name: " + name_input.getText());
-			System.out.println("Birthday: " + month_select.getSelectedItem() + " | " + day_select.getSelectedItem() + " | " + year_select.getSelectedItem());*/
-			
+		else if(e.getSource() == save_Back){			
 			try{
 				LocalDate new_bday = LocalDate.of(taon, buwan, araw);
 				LocalDate today = LocalDate.now();

@@ -108,7 +108,7 @@ public class LoginWindow implements ActionListener{
     public boolean access(String user_Value, String pass_Value) throws IOException{
         
         //Gets the userList.txt file for the data base of 
-        File userList = new File("FinalAcademicProject/userList.txt");
+        File userList = new File("loginCredentials.txt");
 
         boolean access = false;
         //Reads the text file through its lines 

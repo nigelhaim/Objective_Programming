@@ -94,8 +94,11 @@ public class List_Of_Records implements ActionListener{
 		sorter.add(sort_selection);
 
 		sorter.add(ascDes);
+
 		ButtonGroup group = new ButtonGroup();
 		
+		group.add(asc);
+		group.add(des);
 		ascDes.add(asc);
 		ascDes.add(des);
 		ascDes.setLayout(new BoxLayout(ascDes, BoxLayout.Y_AXIS));
